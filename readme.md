@@ -5,7 +5,7 @@ A simple image to ascii converter.
 The script takes an input image and converts it to a string. Simulating the light intensity with different ascii characters.
 
 The algorithm is the following:
-1. Divide the image into chunks (--numChunks). Due to character height being ~2x greater than width we have twice as many chunks in the X direction than in the Y direction
+1. Divide the image into chunks (--numChunks). Due to character height being ~2x greater than width we have twice as many chunks in the X direction than in the Y direction (for image with aspect ratio 1:1)
 2. Calculate the average light intensity in each chunk
 3. Map the chunk intensity to a character (`.` dark `$`)
 
@@ -40,7 +40,7 @@ Just launch the script and open the file.
 python main.py --file cat.jpeg --numChunks 200  
 ```
 
-(Source https://www.britannica.com/animal/cat)
+(Source https://commons.wikimedia.org/wiki/File:Adorable-animal-cat-20787.jpg)
 ![](examples/cat.jpeg)
 ![](examples/catAscii.png)
 

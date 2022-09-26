@@ -18,6 +18,10 @@ class ImgConverter:
         px = im.load()
         # print(px[0, 0])
 
+        # we have to preserve the aspect ratio
+        aspect_ratio = im.size[1] / im.size[0]
+        self.NUM_CHUNKS_Y = int(aspect_ratio*self.NUM_CHUNKS_Y)
+
         px_per_chnk_x = int(im.size[0] / self.NUM_CHUNKS_X)
         px_per_chnk_y = int(im.size[1] / self.NUM_CHUNKS_Y)
 
