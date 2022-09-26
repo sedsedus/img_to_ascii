@@ -1,16 +1,30 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import cv2
-from main import get_intensities, generate_output
+from convert import ImgConverter
 
-cam = cv2.VideoCapture(0)
-imgName = "img"
-while True:
-    ret, frame = cam.read()
-    if not ret:
-        print("failed to grab frame")
-        break
-    
-    cv2.imwrite(f'{imgName}.png', frame)
-    generate_output(get_intensities(f"{imgName}.png"), f"{imgName}.txt")
+def live_convert(imgConverter: ImgConverter, imgName = "img", cameraId=0):
+    cam = cv2.VideoCapture(cameraId)
+    print("Press 'Ctrl + c' to quit")
 
-cam.release()
-cv2.destroyAllWindows()
+    try:
+        while True:
+            ret, frame = cam.read()
+            if not ret:
+                print("failed to grab frame")
+                break
+            
+            cv2.imwrite(f'{imgName}.png', frame)
+            imgConverter.generate_output(imgConverter.get_intensities(f"{imgName}.png"), f"{imgName}.txt")  
+            # cv2.imshow('frame', frame)
+    except KeyboardInterrupt:
+        print()
+        print("Exiting...")
+
+    cam.release()
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    ImgConverter().live_convert()

@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 25 23:10:24 2022
-
-@author: tom
-"""
 
 from PIL import Image, ImageDraw, ImageFont
 import pprint 
