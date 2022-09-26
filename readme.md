@@ -7,7 +7,7 @@ The script takes an input image and converts it to a string. Simulating the ligh
 The algorithm is the following:
 1. Divide the image into chunks (--numChunks). Due to character height being ~2x greater than width we have twice as many chunks in the X direction than in the Y direction (for image with aspect ratio 1:1)
 2. Calculate the average light intensity in each chunk
-3. Map the chunk intensity to a character (`.` dark `$`)
+3. Map the chunk intensity to a character (for example `.` - lighter `$` - darker)
 
 So 1 chunk -> 1 character
 
