@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from fileinput import filename
+import sys
+import os
 from convert import ImgConverter
 from capture import live_convert
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
-import sys
-import os
 
 if __name__ == "__main__":
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
