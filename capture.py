@@ -1,4 +1,3 @@
-from operator import ge
 import cv2
 from main import get_intensities, generate_output
 

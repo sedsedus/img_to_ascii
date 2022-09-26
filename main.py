@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 
 # per x & y
-NUM_CHUNKS_X =100
+NUM_CHUNKS_X = 100
 NUM_CHUNKS_Y = NUM_CHUNKS_X // 2 
 
 intensity_map = [" ", ".",",", "^", "*", "1","&","%","#","@", "$"]
@@ -49,5 +49,5 @@ def generate_output(intensities, outputName):
 
 
 if __name__ == "__main__":
-    intensities = get_intensities("me.jpeg")
-    generate_output(intensities, "image.txt")
+    intensities = get_intensities("img.jpeg")
+    generate_output(intensities, "img.txt")

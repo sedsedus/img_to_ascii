@@ -25,6 +25,7 @@ def get_total(char):
         for j in range(im.size[1]):
             total += sum(px[i, j])
     return total
+
 vals = map(get_total, to_check)
 res = zip(to_check, vals)
 set_vals = set()
@@ -37,7 +38,8 @@ def test(v):
     
 res = filter(test, res)
 sorted_v = sorted(res, key=lambda x: x[1])
-
+print("The sorted intensity scaling is:")
 pprint.pprint(sorted_v)
-for ch, v in sorted_v:
-    print(f"'{ch}', ", end="")
+
+definition = ','.join([f'"{ch}"' for ch, v in sorted_v])
+print(f"intensity_map=[{definition}]")
