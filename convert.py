@@ -3,22 +3,24 @@ import numpy as np
 
 
 # per x & y
-def get_intensities(image, numChunksX, numChunksY):
+def get_intensities(image:Image.Image, numChunksX, numChunksY):
     intensities = np.ndarray((numChunksX, numChunksY))
     # print(im.size)
     px = image.load()
     # print(px[0, 0])
     px_per_chnk_x = int(image.size[0] / numChunksX)
     px_per_chnk_y = int(image.size[1] / numChunksY)
-
+    px_per_chunk = px_per_chnk_x * px_per_chnk_y
     for yi in range(numChunksY):
         for xi in range(numChunksX):
+            xs, xe = xi*px_per_chnk_x, (xi+1)*(px_per_chnk_x)
+            ys, ye = yi*px_per_chnk_y, (yi+1)*(px_per_chnk_y)
+            
             total = 0
-            for x in range(xi*px_per_chnk_x, (xi+1)*(px_per_chnk_x)):
-                for y in range(yi*px_per_chnk_y, (yi+1)*(px_per_chnk_y)):
+            for x in range(xs, xe):
+                for y in range(ys, ye):
                     total += sum(px[x, y])
-            total = total / (px_per_chnk_x * px_per_chnk_y)
-            intensities[xi, yi] = total
+            intensities[xi, yi] = total / px_per_chunk
     return intensities
 
 class ImgConverter:
@@ -71,5 +73,5 @@ class ImgConverter:
 
 if __name__ == "__main__":
     conv = ImgConverter()
-    intensities = conv.get_intensities("img.jpeg")
+    intensities = conv.get_intensities("img.png")
     conv.generate_output(intensities, "img.txt")
