@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cv2
+from PIL import Image
 
 class FrameGrabber():
     def __init__(self, cameraId=0):
@@ -12,7 +13,7 @@ class FrameGrabber():
         self.cam = cv2.VideoCapture(self.cameraId)
         return self
 
-    def get_frames(self):
+    def get_images(self):
         if(self.cam == None):
             print("You must first open the camera!")
             return
@@ -21,7 +22,10 @@ class FrameGrabber():
             if not ret:
                 print("failed to grab frame")
                 break
-            yield frame
+
+            color_converted = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_image=Image.fromarray(color_converted)
+            yield pil_image
             
 
     def __exit__(self, *exc_info):

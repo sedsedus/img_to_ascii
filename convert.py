@@ -33,15 +33,25 @@ class ImgConverter:
         intensities = self.get_intensities(inputName)
         self.generate_output(intensities, outputName)
 
+    def convert_image(self, image, outputName):
+        intensities = self.get_intensities_image(image)
+        self.generate_output(intensities, outputName)
+
     def get_intensities(self, imageName):
-        # we have to preserve the aspect ratio
         im = Image.open(imageName)
-        aspect_ratio = im.size[1] / im.size[0]
+        return self.__get_intensities(im)
+
+    def get_intensities_image(self, image):
+        return self.__get_intensities(image)
+
+    def __get_intensities(self, image):
+        # we have to preserve the aspect ratio
+        aspect_ratio = image.size[1] / image.size[0]
         numChunksX = self.NUM_CHUNKS_X
         numChunksY = int(aspect_ratio*self.NUM_CHUNKS_Y)
 
-        return get_intensities(im, numChunksX, numChunksY)
-
+        return get_intensities(image, numChunksX, numChunksY)
+        
     def generate_output(self, intensities, outputName):
         def map_to(v, vmin, vmax, tomin, tomax):
             return (v - vmin) * (tomax - tomin) / (vmax - vmin) + tomin
