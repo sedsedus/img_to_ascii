@@ -28,6 +28,10 @@ class ImgConverter:
 
         self.intensity_map = [" ", ".", ",", "^", "*", "1", "&", "%", "#", "@", "$"]
         # intensity_map = [' ', '.', '\'', '-', '"', '|', '/', '*', '!', '(', '{', '[', '&', '%', '#', '@', '$']
+    
+    def convert(self, inputName, outputName):
+        intensities = self.get_intensities(inputName)
+        self.generate_output(intensities, outputName)
 
     def get_intensities(self, imageName):
         # we have to preserve the aspect ratio

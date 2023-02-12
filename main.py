@@ -10,12 +10,14 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 def live_convert(converter, fileBase, cameraId):
         grabber = FrameGrabber(cameraId)
+        capturedName = f'{fileBase}.png'
+        outName = f"{fileBase}.txt"
         with grabber:
             try:
                 print("Press 'Ctrl + c' to quit")
                 for frame in grabber.get_frames():
-                    cv2.imwrite(f'{fileBase}.png', frame)
-                    converter.generate_output(converter.get_intensities(f"{fileBase}.png"), f"{fileBase}.txt")  
+                    cv2.imwrite(capturedName, frame)
+                    converter.convert(capturedName, outName)
             except KeyboardInterrupt:
                 print()
                 print("Exiting...")
@@ -26,7 +28,7 @@ if __name__ == "__main__":
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
     parser.add_argument("--live", action="store_true", default=False, help="Capture and convert straight from camera")
     parser.add_argument("--fileName", default="img.jpg", help="Filename to use with the converter")
-    parser.add_argument("--cameraId", default=0, help="Select camera id for live mode")
+    parser.add_argument("--cameraId", default=0, type=int, help="Select camera id for live mode")
     parser.add_argument("--numChunks", default=100, type=int, help="Num chunks to divide the input image (per axis). Total amount of chunks ~ numChunks^2")
     parser.add_argument("--fontAspectRatio", default=2.3, type=float, help="Font character aspect ratio (~2)")
     args = parser.parse_args()
@@ -47,5 +49,4 @@ if __name__ == "__main__":
         live_convert(converter, fileBase, args.cameraId)
     else:
         print(f"Converting {fileName} to {fileOutput}...")
-        intensities = converter.get_intensities(fileName)
-        converter.generate_output(intensities, fileOutput)
+        converter.convert(fileName, fileOutput)

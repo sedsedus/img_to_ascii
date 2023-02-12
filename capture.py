@@ -23,4 +23,3 @@ class FrameGrabber():
     def __exit__(self, *exc_info):
         self.cam.release()
         cv2.destroyAllWindows()
-        
