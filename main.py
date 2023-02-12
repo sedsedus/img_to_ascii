@@ -9,10 +9,9 @@ from capture import FrameGrabber
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 def live_convert(converter, fileBase, cameraId):
-        grabber = FrameGrabber(cameraId)
         capturedName = f'{fileBase}.png'
         outName = f"{fileBase}.txt"
-        with grabber:
+        with FrameGrabber(cameraId) as grabber:
             try:
                 print("Press 'Ctrl + c' to quit")
                 for frame in grabber.get_frames():
