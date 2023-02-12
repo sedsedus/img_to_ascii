@@ -2,30 +2,25 @@
 # -*- coding: utf-8 -*-
 
 import cv2
-from convert import ImgConverter
 
-def live_convert(imgConverter: ImgConverter, imgName = "img", cameraId=0):
-    cam = cv2.VideoCapture(cameraId)
-    print("Press 'Ctrl + c' to quit")
+class FrameGrabber():
+    def __init__(self, cameraId=0):
+        self.cameraId = cameraId
 
-    try:
+    def __enter__(self):
+        self.cam = cv2.VideoCapture(self.cameraId)
+        return self
+
+    def get_frames(self):
         while True:
-            ret, frame = cam.read()
+            ret, frame = self.cam.read()
             if not ret:
                 print("failed to grab frame")
                 break
+            yield frame
             
-            cv2.imwrite(f'{imgName}.png', frame)
-            imgConverter.generate_output(imgConverter.get_intensities(f"{imgName}.png"), f"{imgName}.txt")  
-            # cv2.imshow('frame', frame)
-    except KeyboardInterrupt:
-        print()
-        print("Exiting...")
 
-    cam.release()
-    cv2.destroyAllWindows()
-
-
-if __name__ == "__main__":
-    converter = ImgConverter()
-    live_convert(converter)
+    def __exit__(self, *exc_info):
+        self.cam.release()
+        cv2.destroyAllWindows()
+        

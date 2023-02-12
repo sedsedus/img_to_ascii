@@ -3,9 +3,24 @@
 
 import sys
 import os
+import cv2
 from convert import ImgConverter
-from capture import live_convert
+from capture import FrameGrabber
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+
+def live_convert(converter, fileBase, cameraId):
+        grabber = FrameGrabber(cameraId)
+        with grabber:
+            try:
+                print("Press 'Ctrl + c' to quit")
+                for frame in grabber.get_frames():
+                    cv2.imwrite(f'{fileBase}.png', frame)
+                    converter.generate_output(converter.get_intensities(f"{fileBase}.png"), f"{fileBase}.txt")  
+            except KeyboardInterrupt:
+                print()
+                print("Exiting...")
+    
+
 
 if __name__ == "__main__":
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
