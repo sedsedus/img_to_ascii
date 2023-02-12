@@ -27,4 +27,5 @@ def live_convert(imgConverter: ImgConverter, imgName = "img", cameraId=0):
 
 
 if __name__ == "__main__":
-    ImgConverter().live_convert()
+    converter = ImgConverter()
+    live_convert(converter)
