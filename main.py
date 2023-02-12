@@ -4,13 +4,13 @@
 import sys
 import os
 from convert import ImgConverter
-from capture import FrameGrabber
+from capture import ImageGrabber
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 def live_convert(converter, fileBase, cameraId, saveIntermediate):
         capturedName = f'{fileBase}.png'
         outName = f"{fileBase}.txt"
-        with FrameGrabber(cameraId) as grabber:
+        with ImageGrabber(cameraId) as grabber:
             try:
                 print("Press 'Ctrl + c' to quit")
                 for img in grabber.get_images():

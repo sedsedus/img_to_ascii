@@ -4,7 +4,7 @@
 import cv2
 from PIL import Image
 
-class FrameGrabber():
+class ImageGrabber():
     def __init__(self, cameraId=0):
         self.cameraId = cameraId
         self.cam = None
