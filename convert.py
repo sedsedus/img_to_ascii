@@ -66,7 +66,7 @@ class ImgConverter:
             for y in range(intensities.shape[1]):
                 for x in range(intensities.shape[0]):
                     v = intensities[x, y]
-                    charid = int(map_to(v, min_in, max_in, 0, num_in))
+                    charid = round(map_to(v, min_in, max_in, 0, num_in))
                     f.write(self.intensity_map[charid])
                 f.write("\n")
 
